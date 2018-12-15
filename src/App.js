@@ -1,25 +1,33 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
+import LandingPage from "./components/landingPage";
+import NavBar from "./components/AppNavBar/navBar";
+import Login from "./components/login/login";
+import Register from "./components/register/register";
+import Amplify from "aws-amplify";
+import config from "./config/config";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
+Amplify.configure({
+  Auth: {
+    mandatorySignIn: true,
+    region: config.cognito.REGION,
+    userPoolId: config.cognito.USER_POOL_ID,
+    userPoolWebClientId: config.cognito.APP_CLIENT_ID
+  }
+});
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <NavBar />
+        <Router>
+          <div>
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/register" component={Register} />
+          <Route exact path="/" component={LandingPage} />
+          </div>
+        </Router>
       </div>
     );
   }
