@@ -6,6 +6,7 @@ import Login from "./components/login/login";
 import Register from "./components/register/register";
 import Amplify from "aws-amplify";
 import config from "./config/config";
+import {connect} from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 Amplify.configure({
@@ -17,12 +18,16 @@ Amplify.configure({
   }
 });
 class App extends Component {
+  constructor(props){
+    super(props);
+    console.log(props);
+  }
   render() {
     return (
       <div className="App">
-      <NavBar />
         <Router>
           <div>
+          {this.props.auth?<NavBar />:null}
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/" component={LandingPage} />
@@ -33,4 +38,8 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  auth:state.auth.auth
+});
+
+export default connect(mapStateToProps,null)(App);

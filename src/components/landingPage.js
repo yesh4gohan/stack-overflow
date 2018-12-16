@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import {Link} from "react-router-dom";
 
 class LandingPage extends Component {
   static propTypes = {
@@ -22,12 +23,12 @@ class LandingPage extends Component {
                     any issue
                   </p>
                   <hr />
-                  <a href="#" className="btn btn-lg btn-info mr-2">
+                  <Link to="/register" className="btn btn-lg btn-info mr-2">
                     Sign Up
-                  </a>
-                  <a href="#" className="btn btn-lg btn-light">
+                  </Link>
+                  <Link to="/login" className="btn btn-lg btn-light mr-2">
                     Login
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
